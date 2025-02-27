@@ -1,8 +1,8 @@
 import { AuthService } from "../services/auth.service";
 import { Request, Response, NextFunction } from "express";
-import { createUserDto, LoginDto } from "../dto/createUser.dto";
+import { CreateUserDto, LoginDto } from "../dto/auth.dto";
 
-export class AuthController {
+export default class AuthController {
     private authService: AuthService = new AuthService();
 
     public createUser = async (
@@ -11,7 +11,7 @@ export class AuthController {
         next: Function
     ): Promise<void> => {
         try {
-            const data: createUserDto = req.body;
+            const data: CreateUserDto = req.body;
             const user = await this.authService.createUser(data);
             res.status(201).json({
                 error: false, 

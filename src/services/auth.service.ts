@@ -1,5 +1,5 @@
 import { user } from "@prisma/client";
-import { createUserDto, LoginDto } from "../dto/createUser.dto";
+import { createUserDto, LoginDto } from "../dto/auth.dto";
 import { comparePassword, hashPassword } from "../utils/password.utils";
 import { CustomError } from "../utils/customError.error";
 import jwt from "jsonwebtoken";

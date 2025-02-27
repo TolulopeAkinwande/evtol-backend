@@ -1,12 +1,13 @@
-import express from "express";
-import dotenv from "dotenv"
-import cors from "cors";
-import authRouter from "./routes/auth.routes";
+import express from 'express';
+import dotenv from 'dotenv'
+import cors from 'cors';
+import authRouter from './routes/auth.route';
+import medicationRouter from './routes/medication.route'
 
 dotenv.config();
 const portEnv = process.env.PORT;
 if(!portEnv) {
-    console.error("error: port is not defined in doten file");
+    console.error('error: port is not defined in doten file');
     process.exit(1)
 }
 
@@ -18,16 +19,17 @@ if (isNaN(PORT)) {
 
 const app = express();
 const corsOptions = {
-    origin: "*",
+    origin: '*',
     credentials: true,
-    allowedHeaders: "*",
-    methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
+    allowedHeaders: '*',
+    methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
 }
 
 app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/medication', medicationRouter);
 
 app.listen(PORT, ()=> {
     console.error(`Server is running on Port ${PORT}`)
