@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv"
 import cors from "cors";
 import authRouter from "./routes/auth.routes";
+import medicationRouter from "./routes/medication.route";
+// import errorMiddleWare from "./middleware/error.middleware";
 
 dotenv.config();
 const portEnv = process.env.PORT;
@@ -28,6 +30,9 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/medication', medicationRouter);
+
+// app.use(errorMiddleWare);
 
 app.listen(PORT, ()=> {
     console.error(`Server is running on Port ${PORT}`)

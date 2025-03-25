@@ -15,7 +15,7 @@ export class AuthController {
             const user = await this.authService.createUser(data);
             res.status(201).json({
                 error: false, 
-                messsage: `OPT has been successfully sent to your email @ ${user.email}`,
+                messsage: `Account created successfully`,
             });
         }catch (error) {
             next(error);

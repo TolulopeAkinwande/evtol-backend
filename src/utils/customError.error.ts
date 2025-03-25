@@ -1,11 +1,10 @@
-import { error } from "console";
+export class CustomError extends Error {
+    status: number;
+    message: string;
 
-export class CustomError extends Error{
-    statusCode: number;
-
-    constructor (statusCode: number, message: string){  
+    constructor (status: number, message: string){  
         super(message);
-        this.statusCode = statusCode;
-        this.name = this.constructor.name;
+        this.status = status;
+        this.message = message;
     }
 }
