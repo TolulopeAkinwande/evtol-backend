@@ -53,9 +53,17 @@ export class AuthService {
         );
         return { accessToken, refreshToken };
     }
+    // generateAccessToken(userId: number, name: string, role: string): string {
+    //     return jwt.sign({id: userId, name, role}, process.env.JWT_SECRET!, {expiresIn: '1h'});
+    // };
     generateAccessToken(userId: number, name: string, role: string): string {
-        return jwt.sign({id: userId, name, role}, process.env.JWT_SECRET!, {expiresIn: '1h'});
+        const secret = process.env.JWT_SECRET;
+        if (!secret) {
+            throw new Error("JWT_SECRET is not defined in environment variables.");
+        }
+        return jwt.sign({ id: userId, name, role }, secret, { expiresIn: '1h' });
     };
+    
 
     generateRefreshToken(userId: number, name: string, role: string): string {
         return jwt.sign({id: userId, name, role}, process.env.JWT_SECRET!, {expiresIn: '1h'});

@@ -7,6 +7,7 @@ import medicationRouter from "./routes/medication.route";
 
 dotenv.config();
 const portEnv = process.env.PORT;
+
 if(!portEnv) {
     console.error("error: port is not defined in doten file");
     process.exit(1)
