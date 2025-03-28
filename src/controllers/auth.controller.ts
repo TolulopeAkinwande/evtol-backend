@@ -1,8 +1,9 @@
 import { AuthService } from "../services/auth.service";
 import { Request, Response, NextFunction } from "express";
-import { createUserDto, LoginDto } from "../dto/createUser.dto";
+// import { CreateUserDto, LoginDto } from "../dto/auth.dto";
+import { createUserDto, LoginDto } from "../dto/auth.dto";
 
-export class AuthController {
+export default class AuthController {
     private authService: AuthService = new AuthService();
 
     public createUser = async (
@@ -15,7 +16,7 @@ export class AuthController {
             const user = await this.authService.createUser(data);
             res.status(201).json({
                 error: false, 
-                messsage: `Account created successfully`,
+                messsage: `OPT has been successfully sent to your email @ ${user.email}`,
             });
         }catch (error) {
             next(error);
@@ -34,4 +35,4 @@ export class AuthController {
             next(error);
         }
     };
-}    
+}

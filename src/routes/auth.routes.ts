@@ -1,11 +1,13 @@
 import express from 'express';
-import { AuthController } from "../controllers/auth.controller";
+import AuthController from "../controllers/auth.controller";
+import dtoValidationMiddleware from '../middleware/validation.middleware';
+import { createUserDto, LoginDto } from '../dto/auth.dto';
+// import { CreateUserDto, LoginDto } from '../dto/auth.dto';
 
-const authController = new AuthController();
-const authRouter = express.Router();
+const controller = new AuthController();
+const router = express.Router();
 
-authRouter.post("/sign-up", authController.createUser);
-authRouter.post("/login", authController.login)
-// authRouter.post("/", validationMiddleware(LoginDTO), authController.login);
+router.post('/sign-up', dtoValidationMiddleware(createUserDto, 'body'), controller.createUser);
+router.post('/login', dtoValidationMiddleware(LoginDto, 'body'), controller.login);
 
-export default authRouter;
+export default router;

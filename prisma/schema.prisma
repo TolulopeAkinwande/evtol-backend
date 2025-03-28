@@ -30,74 +30,77 @@ enum State {
 }
 
 enum Role {
-  user 
+  user
   admin
 }
 
 model user {
-  id Int @id @default(autoincrement())
-  firstName String
-  lastName String
-  email String
+  id          Int      @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  email       String
   phoneNumber String
-  password String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  orders order[]
-  role Role
+  password    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  orders      order[]
+  role        Role
 }
 
 model medication {
-  id Int @id @default(autoincrement())
-  name String
-  price Float
-  quantity Int
-  weight Float
-  code String
-  image String
+  id         Int         @id @default(autoincrement())
+  name       String
+  price      Float
+  quantity   Int
+  weight     Float
+  code       String
+  image      String
   orderItems orderItem[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
 }
 
 model evtol {
-  id Int @id @default(autoincrement())
-  serialNumber String
-  model Model
-  weightLimit Float
-  state State
+  id              Int      @id @default(autoincrement())
+  serialNumber    String
+  model           Model
+  weightLimit     Float
+  state           State
   batteryCapacity Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  orders          order[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
 model order {
-  id Int @id @default(autoincrement())
-  userId Int
-  user user @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id          Int         @id @default(autoincrement())
+  userId      Int
+  user        user        @relation(fields: [userId], references: [id], onDelete: Cascade)
   totalAmount Float
   totalWeight Float
-  items orderItem[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  items       orderItem[]
+  evtolId     Int
+  evtol       evtol       @relation(fields: [evtolId], references: [id])
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 }
 
 model orderItem {
-  id Int @id @default(autoincrement())
-  orderId Int 
-  order order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  id           Int        @id @default(autoincrement())
+  orderId      Int
+  order        order      @relation(fields: [orderId], references: [id], onDelete: Cascade)
   medicationId Int
-  medication medication @relation(fields: [medicationId], references: [id], onDelete: Cascade)
-  quantity Int
-  amount Float
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  medication   medication @relation(fields: [medicationId], references: [id], onDelete: Cascade)
+  quantity     Int
+  amount       Float
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }
 
 model batteryLog {
-  id Int @id @default(autoincrement())
-  evtolId Int
+  id           Int      @id @default(autoincrement())
+  evtolId      Int
   batteryLevel Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }

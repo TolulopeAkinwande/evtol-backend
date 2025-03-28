@@ -1,4 +1,5 @@
-import { IsString, IsNotEmpty, IsNumber, IsOptional } from "class-validator";
+import { Type } from "class-transformer";
+import { IsString, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsInt, IsArray, ValidateNested } from "class-validator";
 
 export class CreateMedicationDto {
     @IsNotEmpty()
@@ -42,4 +43,20 @@ export class UpdateMedicationDto {
     @IsOptional()
     @IsString()
     image?: string;
+}
+
+export class CartItemDto {
+    @IsInt()
+    @IsPositive()
+    id!: number;
+  
+    @IsInt()
+    @IsPositive()
+    quantity!: number;
+}
+export class CheckoutDto {
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => CartItemDto)
+    items!: CartItemDto[];
 }

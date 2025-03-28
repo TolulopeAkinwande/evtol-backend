@@ -1,7 +1,7 @@
 import { plainToInstance } from 'class-transformer';
 import { ValidationError, validate } from 'class-validator';
 import { Request, RequestHandler } from 'express';
-import { CustomError } from '../utils/customError.error';
+import {CustomError} from '../utils/customError.error';
 import { sanitize } from 'class-sanitizer';
 
 export const getAllConstraints = (errors: ValidationError[]): Record<string, string>[] => {
